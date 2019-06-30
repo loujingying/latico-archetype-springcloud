@@ -1,0 +1,6 @@
+server:
+  port: 8203
+
+spring:
+  application:
+    name: server-apigateway-gateway

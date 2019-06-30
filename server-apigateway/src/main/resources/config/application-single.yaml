@@ -1,0 +1,47 @@
+#单机模式
+server:
+  port: 8200
+
+spring:
+  application:
+    name: server-apigateway-gateway
+  #安全认证配置
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        #        id，随便取
+        - id: service-provider-eureka
+          #        uri是要转发到哪里，uri可以是具体的URL,如http://localhost:9000 ，也可以是服务名称，服务名称使用 lb://服务名称，这里是连接到注册中心的服务名称
+          uri: lb://service-provider-eureka
+
+          predicates:
+            #          Path匹配客户端请求的URL格式,可以使用通配符Path=/**或者Path=/hel*，测试时访问：http://localhost:8200/hello
+            - Path=/hel*
+
+        - id: service-invoker-eureka
+          #        uri是要转发到哪里，uri可以是具体的URL,如http://localhost:9000 ，也可以是服务名称，服务名称使用 lb://服务名称，这里是连接到注册中心的服务名称
+          uri: lb://service-invoker-eureka
+
+          predicates:
+            #          Path匹配客户端请求的URL格式,可以使用通配符Path=/**或者Path=/hel*，示例访问：http://localhost:8200/client/hello
+            - Path=/client/**
+
+eureka:
+  instance:
+    preferIpAddress: true
+    # 每隔10s发送一次心跳
+    lease-renewal-interval-in-seconds: 10
+    # 告知服务端30秒还未收到心跳的话，就将该服务移除列表
+    lease-expiration-duration-in-seconds: 30
+    #    eureka的管理页面中的注册客户端列表的status字段显示的内容，设置显示swagger
+    statusPageUrl: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address:localhost}:${server.port}/swagger-ui.html
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8000/eureka/

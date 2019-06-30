@@ -1,0 +1,47 @@
+### 因为骨架打包的原因，.gitignore打包不进去，新建项目后把该文件重命名为: .gitignore
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+*~
+#*
+*#
+.#*
+out/
+logs/
+log/
+*.log
+gen
+target/
+pom.xml.versionsBackup
+.settings/
+.apt_generated/
+_site/
+*.swp
+_generator/
+_mybatisplus_generator/

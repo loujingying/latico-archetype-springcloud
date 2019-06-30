@@ -1,0 +1,23 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: service-provider-eureka
+  #安全认证配置
+  security:
+    user:
+      name: admin
+      password: admin
+eureka:
+  instance:
+    preferIpAddress: true
+    # 每隔10s发送一次心跳
+    lease-renewal-interval-in-seconds: 10
+    # 告知服务端30秒还未收到心跳的话，就将该服务移除列表
+    lease-expiration-duration-in-seconds: 30
+    #    eureka的管理页面中的注册客户端列表的status字段显示的内容，设置显示swagger
+    statusPageUrl: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address:localhost}:${server.port}/swagger-ui.html
+
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:8002/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:8003/eureka/

@@ -1,0 +1,9 @@
+#单机模式
+server:
+  port: 9100
+spring:
+  application:
+    name: service-invoker-eureka
+feign:
+  hystrix:
+    enabled: true

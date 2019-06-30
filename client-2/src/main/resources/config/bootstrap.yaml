@@ -1,0 +1,47 @@
+#  配置服务客户端配置，调用获取配置文件信息，如果把该文件改成bootstrap.yaml，那么就是支持配置服务客户端
+#  Spring Cloud会创建一个Bootstrap Context，作为Spring应用的Application Context的父上下文。
+#  初始化的时候，Bootstrap Context负责从外部源加载配置属性并解析配置。
+#  这两个上下文共享一个从外部获取的Environment。Bootstrap属性有高优先级，
+#  默认情况下，它们不会被本地配置覆盖。 Bootstrap context和Application Context有着不同的约定，
+#  所以新增了一个bootstrap.yml文件，而不是使用application.yml (或者application.properties)。
+#  保证Bootstrap Context和Application Context配置的分离。
+#  推荐在bootstrap.yml or application.yml里面配置spring.application.name. 你可以通过设置spring.cloud.bootstrap.enabled=false来禁用bootstrap
+
+spring:
+  #安全认证配置
+  security:
+    user:
+      name: admin
+      password: admin
+  cloud:
+    config:
+      label: master
+      #      配置文件前缀
+      name: service-config
+      #      配置文件，可以多个，逗号分隔
+      profile: prod
+      #      单机模式，通过uri指定配置中心地址
+      #      uri: http://localhost:8888/
+
+      #      分布式，从注册中心中发现配置服务
+      discovery:
+        enabled: true
+        #        配置中心服务ID
+        #        serviceId: server-config-springcloud-git
+        serviceId: server-config-springcloud
+    management:
+      security:
+        enabled: false
+
+eureka:
+  instance:
+    preferIpAddress: true
+    # 每隔10s发送一次心跳
+    lease-renewal-interval-in-seconds: 10
+    # 告知服务端30秒还未收到心跳的话，就将该服务移除列表
+    lease-expiration-duration-in-seconds: 30
+    #    eureka的管理页面中的注册客户端列表的status字段显示的内容，设置显示swagger
+    statusPageUrl: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address:localhost}:${server.port}/swagger-ui.html
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8000/eureka/

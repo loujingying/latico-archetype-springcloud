@@ -1,0 +1,45 @@
+#集群模式时的节点1启动配置
+server:
+  port: 8001
+
+spring:
+  application:
+    name: server-register-eureka
+  # 如果开了，安全认证的配置，访问时会要求输入用户名和密码认证，用户名为user，密码在程序启动时会输出到控制台上
+  # 目前建议使用独立的安全模块进行实现
+  security: #安全认证配置
+    basic:
+      enabled: true
+    user:
+      name: admin
+      password: admin
+#http编码配置
+http:
+  encoding:
+    charset: UTF-8
+    force: true
+    enabled: true
+
+# 其他注册中心
+otherRegister:
+  instance1:
+    hostname: localhost
+    port: 8002
+  instance2:
+    hostname: localhost
+    port: 8003
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 该参数代表该Eureka应用（包括注册中心）是否注册到注册中心中，如果只是一个单一注册中心，那么把该参数设置为false,代表不向注册中心注册自己。如果是搭建高可用的集群注册中心，则该属性设置为true。该属性值默认true。
+    register-with-eureka: true
+    # 是否从eureka上获取注册信息,该参数代表是否需要检索服务，如果是单一注册中心则不需要去检索服务，则设置为false。该参数默认值为true。
+    fetch-registry: true
+    service-url:
+      #      如果有多个注册中心，那么都列出来，用逗号分隔，中间不能有空格间隔
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${otherRegister.instance1.hostname}:${otherRegister.instance1.port}/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@${otherRegister.instance2.hostname}:${otherRegister.instance2.port}/eureka/
+  server:
+    #    设置为false 代表关闭注册中心的保护机制，默认为true。
+    enable-self-preservation: false

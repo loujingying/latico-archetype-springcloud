@@ -1,0 +1,85 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>release</id>
+    <formats>
+        <format>dir</format>
+    </formats>
+    <!--<baseDirectory>app</baseDirectory>-->
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/doc/00-升级记录</directory>
+            <outputDirectory>doc/00-升级记录</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/doc/08-部署文档</directory>
+            <outputDirectory>doc/08-部署文档</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/doc/01-脚本文档/数据库脚本</directory>
+            <outputDirectory>doc/01-脚本文档/数据库脚本</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}\build\assembly</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+                <include>*.cfg</include>
+                <include>readme.txt</include>
+            </includes>
+            <filtered>true</filtered>
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}\target</directory>
+            <outputDirectory>\</outputDirectory>
+            <includes>
+                <include>classpath-unix.properties</include>
+            </includes>
+            <filtered>true</filtered>
+        </fileSet>
+
+        <!-- 拷贝配置文件 -->
+        <!-- 先从项目目录的config拷贝配置文件 -->
+        <fileSet>
+            <directory>${basedir}\config</directory>
+            <outputDirectory>config</outputDirectory>
+            <includes>
+            </includes>
+        </fileSet>
+        <!-- 从项目目录的资源config拷贝配置文件 -->
+        <fileSet>
+            <directory>${basedir}\src\main\resources\config</directory>
+            <outputDirectory>config</outputDirectory>
+            <includes>
+                <include>application*</include>
+                <include>config.xml</include>
+                <include>bootstrap.yaml</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useProjectAttachments>false</useProjectAttachments>
+            <scope>compile</scope>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <scope>runtime</scope>
+        </dependencySet>
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+            <scope>system</scope>
+        </dependencySet>
+    </dependencySets>
+    <files>
+        <file>
+            <source>${build.directory}\\${project.build.finalName}.jar</source>
+            <outputDirectory>lib</outputDirectory>
+        </file>
+    </files>
+</assembly>

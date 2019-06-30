@@ -1,0 +1,41 @@
+#yaml
+#对于读取本地文件的方式，必须配置在这里，因为sping.profiles.active必须是native
+server:
+  port: 8100
+spring:
+  application:
+    name: server-config-springcloud
+  #安全认证配置
+  security:
+    user:
+      name: admin
+      password: admin
+  #读取本地文件，active需要为native
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        #    URL前缀，如果这里用了，客户端也要相应添加前缀
+#        prefix: service-config
+        native:
+
+#          如下就是：service-config-*.properties或者service-config-*.yaml，*号代表调用者指定，浏览器访问：http://localhost:8100/service-config/dev，就是访问类路径config/service-config-prod.properties/yaml或者项目目录./config/service-config-prod.properties/yaml
+          #          searchLocations: classpath:/config或者searchLocations:c:/config
+          searchLocations: classpath:/config/,file:./config/
+        default-label: master
+
+#          把配置中心发布到注册中心
+eureka:
+  instance:
+    preferIpAddress: true
+    # 每隔10s发送一次心跳
+    lease-renewal-interval-in-seconds: 10
+    # 告知服务端30秒还未收到心跳的话，就将该服务移除列表
+    lease-expiration-duration-in-seconds: 30
+    #    eureka的管理页面中的注册客户端列表的status字段显示的内容，设置显示swagger
+    statusPageUrl: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address:localhost}:${server.port}/swagger-ui.html
+
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8000/eureka/

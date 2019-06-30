@@ -1,0 +1,9 @@
+server:
+  port: 9102
+spring:
+  application:
+    name: service-invoker-feign-eureka-hystrix-dashboard
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/,http://localhost:8002/eureka/,http://localhost:8003/eureka/
