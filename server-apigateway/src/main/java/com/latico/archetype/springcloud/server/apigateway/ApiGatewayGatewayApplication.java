@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * <PRE>
  *  程序入口
  * </PRE>
- * @Author: LanDingDong
+ * @Author: latico
  * @Date: 2019-03-13 22:03:56
  * @Version: 1.0
  */
