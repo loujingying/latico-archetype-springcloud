@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.latico.archetype.springcloud</groupId>
-    <artifactId>latico-springcloud-archetype</artifactId>
+    <artifactId>latico-archetype-springcloud</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>server-register</module>
@@ -16,7 +16,7 @@
         <module>client-2</module>
     </modules>
     <packaging>pom</packaging>
-    <name>latico-springcloud-archetype</name>
+    <name>latico-archetype-springcloud</name>
 
     <!--邮件管理列表-->
     <mailingLists>
@@ -55,16 +55,16 @@
     <!--项目名称和URL-->
     <issueManagement>
         <!--项目名字，-->
-        <system>latico-springcloud-archetype</system>
+        <system>latico-archetype-springcloud</system>
         <!--该项目使用的URL-->
-        <url>https://localhost:8080/latico-springcloud-archetype</url>
+        <url>https://localhost:8080/latico-archetype-springcloud</url>
     </issueManagement>
 
     <!--软件配置管理（SCM：Software Configuration Management）功能-->
     <scm>
-        <url>http://gitlab.gdlaticosoft.com:7111/common/latico-springcloud-archetype.git</url>
+        <url>http://gitlab.gdlaticosoft.com:7111/common/latico-archetype-springcloud.git</url>
         <!--<connection>scm:svn:http://gitlab.gdlaticosoft.com:7111/common/latico-commons.git</connection>-->
-        <connection>scm:git:http://gitlab.gdlaticosoft.com:7111/common/latico-springcloud-archetype.git</connection>
+        <connection>scm:git:http://gitlab.gdlaticosoft.com:7111/common/latico-archetype-springcloud.git</connection>
     </scm>
 
     <!--项目持续集成信息-->
